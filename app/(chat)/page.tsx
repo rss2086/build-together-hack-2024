@@ -90,10 +90,15 @@ export default async function IndexPage() {
           <h1 className="py-2 font-bold text-2xl font-serif">
             Search for any topic
           </h1>
-          <Input
-            className=" w-full max-w-4xl py-6"
-            placeholder="Search for a language"
-          />
+          <div className="flex">
+            <Input
+              className=" w-full max-w-4xl py-6"
+              placeholder="Search for a language"
+            />
+            <button className="p-2 px-8 bg-black text-white ml-4 rounded-lg">
+              Search
+            </button>
+          </div>
         </div>
       </section>
     </main>
