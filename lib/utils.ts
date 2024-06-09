@@ -87,3 +87,12 @@ export const getMessageFromCode = (resultCode: string) => {
       return 'Logged in!'
   }
 }
+
+export function createSlug(input: string): string {
+  return input
+      .toLowerCase()                           // Convert to lowercase
+      .trim()                                  // Trim whitespace from both ends
+      .replace(/[^\w\s-]/g, '')                // Remove all non-word characters (letters, numbers, underscores) except for spaces and hyphens
+      .replace(/[\s_-]+/g, '-')                // Replace spaces, underscores, and hyphens with a single hyphen
+      .replace(/^-+|-+$/g, '');                // Remove leading and trailing hyphens
+}

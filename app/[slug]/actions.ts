@@ -4,6 +4,11 @@ import { streamText } from 'ai'
 import { openai } from '@ai-sdk/openai'
 import { createStreamableValue } from 'ai/rsc'
 import { createOpenAI } from '@ai-sdk/openai'
+import { nanoid } from 'nanoid'
+import { ldb } from '../db/lancedb'
+import { qdrantClient } from '../db/qdrant'
+import { generateEmbedding } from '../db/embeddings'
+import { createClient } from '../db/supabase/server'
 
 const groq = createOpenAI({
   baseURL: 'https://api.groq.com/openai/v1',
@@ -11,7 +16,9 @@ const groq = createOpenAI({
 })
 const groqModel = groq('llama3-8b-8192')
 const openAIModel = openai('gpt-4o')
-const modelToUse = openAIModel
+const modelToUse = groqModel
+
+export const supabase = createClient();
 
 export async function generateKid(input: string) {
   'use server'
@@ -44,7 +51,10 @@ export async function generateKid(input: string) {
     }
 
     stream.done()
-    console.log(full)
+    
+
+        
+   
   })()
 
   return { output: stream.value }
@@ -53,9 +63,9 @@ export async function generateKid(input: string) {
 export async function generateTeen(input: string) {
   'use server'
 
-  const stream = createStreamableValue('')
-
-  ;(async () => {
+  const stream = createStreamableValue('');
+  
+  (async () => {
     let full = ''
     const { textStream } = await streamText({
       model: modelToUse,
@@ -185,4 +195,33 @@ export async function generatePro(input: string) {
   })()
 
   return { output: stream.value }
+}
+
+export async function addVectorEmbedding(query: string, supaId:number) {
+  const id = nanoid()
+  const queryVector = await generateEmbedding(query)
+
+  const operationInfo = await qdrantClient.upsert("topics", {
+    wait: true,
+    points: [
+      { id: id, vector: queryVector.data[0].embedding, payload: { query: query, supaId:supaId  } },
+    ],
+  });
+
+}
+
+export async function addTopic(topic:string){
+  const { data, error } = await supabase
+  .from('pages')
+  .insert([
+  { "topic": topic},
+  ])
+}
+
+export async function addPage(topic:string){
+  const { data, error } = await supabase
+  .from('pages')
+  .insert([
+  { "topic": topic},
+  ])
 }
