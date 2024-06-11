@@ -76,18 +76,18 @@ function handleLevelClick(level: string) {
 
 const currentLevelTitle =
   educationLevels.find(level => level.active)?.title ?? 'kid'
-console.log(currentLevelTitle, ' - currentLevelTitle')
+// console.log(currentLevelTitle, ' - currentLevelTitle')
 
 const content = articles.filter(article => article.level === currentLevelTitle)[0].content
 
 
   return (
-    <div className="flex bg-white dark:bg-black">
+    <div className="flex ">
       <main className="flex-1 py-4">
         <header>
         <div className='max-w-4xl mx-auto pt-8'>
         <Link href="/" className=''>
-        <h1 className='text-blue-600'>Go back</h1>
+        <h1 className='text-blue-600 dark:text-indigo-200'>Go back</h1>
 
         </Link>
         </div>
@@ -102,15 +102,15 @@ const content = articles.filter(article => article.level === currentLevelTitle)[
         </header>
         <Article text={content!} />
       </main>
-      <aside className="w-1/4 p-4 bg-white border-l sticky h-full gap-12">
+      <aside className="w-1/4 p-4  border-l sticky h-full gap-12">
         {educationLevels.map(level => (
           <div
             key={level.title}
             onClick={() => setEducationLevel(level.title)}
             className={cn(
-              'flex-1 p-4 bg-white border border-gray-200 rounded-lg shadow-md my-4 cursor-pointer transition duration-300 ease-in-out hover:scale-105',
+              'flex-1 p-4  border border-gray-200 dark:border-zinc-800 rounded-lg shadow-md my-4 cursor-pointer transition duration-300 ease-in-out hover:scale-105',
               level.active &&
-                'border-2 border-blue-500 bg-indigo-100 cursor-auto hover:scale-100'
+                'border-2 border-blue-500 dark:border-blue-100 bg-indigo-100 dark:bg-indigo-950 cursor-auto hover:scale-100'
             )}
           >
             <div className="flex gap-4">

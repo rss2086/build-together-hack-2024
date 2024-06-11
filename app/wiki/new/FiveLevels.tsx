@@ -9,16 +9,12 @@ import {
   addToQdrant
 } from './actions'
 import { StreamableValue, readStreamableValue } from 'ai/rsc'
-import { Button } from '@/components/ui/button'
 import { cn, createSlug } from '@/lib/utils'
 import Article from './Article'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@/app/db/supabase/client'
-import { qdrantClient } from '@/app/db/qdrant'
-import { nanoid } from 'nanoid'
-import { generateEmbedding } from '@/app/db/embeddings'
-import { QdrantClient } from '@qdrant/js-client-rest'
+
 import Link from 'next/link'
 
 interface Level {
@@ -111,7 +107,7 @@ const addToSupabase = async (topic:string) => {
     .insert([
       { topic:topic, slug: createSlug(topic), lang:'en' }
     ]).select()
-  console.log(data)
+  // console.log(data)
   return data![0]
 }
 
@@ -124,7 +120,7 @@ useEffect(() => {
   if (isLoaded && topic) {
     
     addToSupabase(topic).then((data) => {
-    console.log('Data added to supabase', data)
+    // console.log('Data added to supabase', data)
     Promise.all([
       runGenerateFunction(
         topic,
@@ -158,7 +154,7 @@ useEffect(() => {
       ),
       addToQdrant(topic, data?.id, data?.slug)
     ]).then(() => {
-      console.log('All generation functions have completed.')
+      // console.log('All generation functions have completed.')
 
       // You can set another state here if you need to know when all have finished
     })})
@@ -202,11 +198,11 @@ function showCurrentLevelText() {
 
 
   return (
-    <div className="flex bg-white dark:bg-black">
+    <div className="flex">
       <main className="flex-1 py-4">
         <div className='max-w-4xl mx-auto pt-8'>
         <Link href="/" className=''>
-        <h1 className='text-blue-600'>Go back</h1>
+        <h1 className='text-blue-600 dark:text-blue-200'>Go back</h1>
 
         </Link>
         </div>
@@ -222,15 +218,15 @@ function showCurrentLevelText() {
         </header>
         <Article text={showCurrentLevelText()} />
       </main>
-      <aside className="w-1/4 p-4 bg-white border-l sticky h-full gap-12">
+      <aside className="w-1/4 p-4  border-l sticky h-full gap-12">
         {educationLevels.map(level => (
           <div
             key={level.title}
             onClick={() => setEducationLevel(level.title)}
             className={cn(
-              'flex-1 p-4 bg-white border border-gray-200 rounded-lg shadow-md my-4 cursor-pointer transition duration-300 ease-in-out hover:scale-105',
+              'flex-1 p-4  border border-gray-200 dark:border-zinc-800 rounded-lg shadow-md my-4 cursor-pointer transition duration-300 ease-in-out hover:scale-105',
               level.active &&
-                'border-2 border-blue-500 bg-indigo-100 cursor-auto hover:scale-100'
+                'border-2 border-blue-500 dark:border-blue-100 bg-indigo-100 dark:bg-indigo-950 cursor-auto hover:scale-100'
             )}
           >
             <div className="flex gap-4">

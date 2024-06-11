@@ -8,11 +8,11 @@ import rehypeKatex from 'rehype-katex'
 
 export default function Article({ text }: { text: string }) {
   return (
-    <article className="py-12 bg-white rounded-lg w-full">
+    <article className="py-12  rounded-lg w-full">
       <section className="max-w-5xl mx-auto">
         <div className="w-3/5 mx-auto">
           <Markdown
-            className={'prose'}
+            className={'prose  dark:prose-invert'}
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
           >

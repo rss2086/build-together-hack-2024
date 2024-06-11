@@ -51,13 +51,15 @@ export default function Globe({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const pointerInteracting = useRef(null)
   const pointerInteractionMovement = useRef(0)
+
   const [{ r }, api] = useSpring(() => ({
     r: 0,
     config: {
       mass: 1,
       tension: 280,
       friction: 40,
-      precision: 0.001
+      precision: 0.001,
+
     }
   }))
 
@@ -93,9 +95,14 @@ export default function Globe({
   useEffect(() => {
     window.addEventListener('resize', onResize)
     onResize()
+    const baseColor:[number,number,number] = theme === 'dark' ? [0, 0, 0] : [1, 1, 1]
+    const glowColor:[number,number,number] = theme === 'dark' ? [0.4, 0.5, 0.9] : [1, 1, 1]
+    const markerColor:[number,number,number] = theme === 'dark' ? [0.4, 0.5, 0.9] : [0.4, 0.5, 0.9]
+    const dark = theme === 'dark' ? 1 : 0
 
     const globe = createGlobe(canvasRef.current!, {
       ...config,
+      dark: dark,
       // dark: theme === 'dark' ? 1 : 0,
       width: width * 2,
       height: width * 2,
@@ -104,7 +111,7 @@ export default function Globe({
 
     setTimeout(() => (canvasRef.current!.style.opacity = '1'))
     return () => globe.destroy()
-  }, [])
+  }, [theme])
 
   return (
     <div

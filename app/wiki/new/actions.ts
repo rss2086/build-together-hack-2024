@@ -190,7 +190,7 @@ export async function generatePro(input: string, parentId:number) {
     }
 
     stream.done()
-    console.log()
+    // console.log()
     await addPage(parentId, 'pro', full)
   })()
 
@@ -227,7 +227,7 @@ export const addToQdrant = async (topic:string, topicId:number, slug:string) => 
   
   try{
   const vector = await generateEmbedding(topic)
-  console.log('Vector', vector)
+  // console.log('Vector', vector)
   await vectorClient.upsert("topics", {
    wait: true,
    points: [

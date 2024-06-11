@@ -30,56 +30,56 @@ export default async function IndexPage() {
       <WikiSearchBar />
     </div>
     <Link
-      className="sm:absolute top-[20%] left-[28%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[20%] left-[26%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">English</h1>
       <h2 className="text-sm">6,002,312+ articles</h2>
     </Link>
     <Link
-      className="sm:absolute top-[36%] left-[23%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[36%] left-[21%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">Spanish</h1>
       <h2 className="text-sm">Coming Soon</h2>
     </Link>
     <Link
-      className="sm:absolute top-[51%] left-[23%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[51%] left-[21%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">French</h1>
       <h2 className="text-sm">Coming Soon</h2>
     </Link>
     <Link
-      className="sm:absolute top-[66%] left-[28%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[66%] left-[26%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">Japanese</h1>
       <h2 className="text-sm">Coming Soon</h2>
     </Link>
     <Link
-      className="sm:absolute top-[20%] right-[28%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[20%] right-[26%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">Mandarin</h1>
       <h2 className="text-sm">Coming Soon</h2>
     </Link>
     <Link
-      className="sm:absolute top-[36%] right-[23%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[36%] right-[21%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">Hindi</h1>
       <h2 className="text-sm">Coming Soon</h2>
     </Link>
     <Link
-      className="sm:absolute top-[51%] right-[23%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[51%] right-[21%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">Gujarati</h1>
       <h2 className="text-sm">Coming Soon</h2>
     </Link>
     <Link
-      className="sm:absolute top-[66%] right-[28%] hover:bg-gray-200 px-4 py-2 cursor-auto"
+      className="sm:absolute top-[66%] right-[26%] hover:bg-gray-200 dark:hover:bg-zinc-800 px-4 py-2 cursor-auto"
       href="/"
     >
       <h1 className="text-xl text-[#36C] font-bold">Portuguese</h1>

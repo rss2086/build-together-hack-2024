@@ -14,7 +14,6 @@ import Heirarchy from "./heirarchy";
 
 export default async function Page({params, searchParams}: {params: {slug: string}, searchParams: Record<string, string>}) {
 
-  console.log('Page', params, searchParams)
   const search = searchParams?.search
 
   if(!search) {
@@ -33,8 +32,8 @@ export default async function Page({params, searchParams}: {params: {slug: strin
   }
 
   const vectorClient = new QdrantClient({
-    url: 'https://8cd1818f-f419-4861-89fd-1dd08253c0a2.us-east4-0.gcp.cloud.qdrant.io:6333',
-    apiKey: 'gymi8BGbOnZzzEhWcRv2itKsC6KY7UJzjVvCxKhV3TcTqhuI3nmUPg',
+    url: process.env.QDRANT_URL,
+    apiKey: process.env.QDRANT_API_KEY,
   });
   
   const res = await vectorClient.search("topics", {
@@ -55,6 +54,7 @@ export default async function Page({params, searchParams}: {params: {slug: strin
     redirect('/wiki/' + bestSlug)
   }
 
+  
 const topics = res.map((result) => result?.payload?.slug as string)
 
 async function organizeTopics(topics: string[]) {

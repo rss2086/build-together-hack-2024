@@ -71,11 +71,11 @@ export default function Heirarchy({topics, organizeFunc}: {topics: string[], org
     <div className="space-y-4">
     {levels.data.map((level) => (
       <Collapsible key={level.descriptive}>
-        <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 bg-white rounded-md shadow-sm dark:bg-gray-900 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75">
+        <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 bg-white rounded-md rounded-b-none shadow-sm dark:bg-zinc-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-950 focus:outline-none focus-visible:ring focus-visible:ring-primary-500">
           <div className="font-medium">{level.descriptive}</div>
           <ChevronDownIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
         </CollapsibleTrigger>
-        <CollapsibleContent className="px-4 py-3 bg-gray-50 rounded-b-md dark:bg-gray-800 dark:text-gray-300">
+        <CollapsibleContent className="px-4 py-3 bg-gray-50 rounded-b-md dark:bg-zinc-700 dark:text-gray-300">
         {level.topics.map((topic) => (
           <div key={topic.slug}>
           <Link href={`/wiki/${topic.slug}`} >
