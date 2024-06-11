@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils'
 import Article from './Article'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ArticleType } from './page'
+
 
 interface Level {
   title: string
@@ -55,7 +57,7 @@ interface Generation {
   text: string
 }
 
-export function FiveLevels({articles}: {articles: Level[]}) {
+export function FiveLevels({articles}: {articles: ArticleType[]}) {
   const [educationLevels, setEducationLevels] = useState(levels)
 
 
@@ -98,7 +100,7 @@ const content = articles.filter(article => article.level === currentLevelTitle)[
             </p>
           </h2>
         </header>
-        <Article text={content} />
+        <Article text={content!} />
       </main>
       <aside className="w-1/4 p-4 bg-white border-l sticky h-full gap-12">
         {educationLevels.map(level => (

@@ -4,13 +4,14 @@ import { FiveLevels } from './FiveLevels'
 export const dynamic = 'force-dynamic'
 
 
-function createSlug(input: string): string {
-  return input
-      .toLowerCase()                           // Convert to lowercase
-      .trim()                                  // Trim whitespace from both ends
-      .replace(/[^\w\s-]/g, '')                // Remove all non-word characters (letters, numbers, underscores) except for spaces and hyphens
-      .replace(/[\s_-]+/g, '-')                // Replace spaces, underscores, and hyphens with a single hyphen
-      .replace(/^-+|-+$/g, '');                // Remove leading and trailing hyphens
+
+export interface ArticleType {
+  title: string
+  topic: string
+  level: string
+  content: string
+  image: string
+  active: boolean
 }
 
 export default async function HomePage({ params }: { params: { slug: string } }) {
@@ -32,7 +33,9 @@ export default async function HomePage({ params }: { params: { slug: string } })
   const convertedTitleCase = title?.replace(/-/g, ' ').replace(/\b\w/g, (l:string) => l.toUpperCase())
   // console.log('SUPABASE',data2)
 
-  const articles = data2.map((article) => {
+
+
+  const articles = data2?.map((article) => {
     return {
       title: convertedTitleCase,
       topic:slug,
@@ -43,6 +46,14 @@ export default async function HomePage({ params }: { params: { slug: string } })
     }
   })
 
+  if(!articles) {
+    return (
+      <div>
+        <h1>Sorry, no articles found for this topic.</h1>
+      </div>
+    )
+  }
+  
   return (
     <>
     <FiveLevels articles={articles}/>

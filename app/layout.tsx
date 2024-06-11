@@ -3,9 +3,8 @@ import { GeistMono } from 'geist/font/mono'
 
 import '@/app/globals.css'
 import { cn } from '@/lib/utils'
-import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { Providers } from '@/components/providers'
-import { Header } from '@/components/header'
+// import { Header } from '@/components/header'
 import { Toaster } from '@/components/ui/sonner'
 
 export const metadata = {
@@ -13,10 +12,10 @@ export const metadata = {
     ? new URL(`https://${process.env.VERCEL_URL}`)
     : undefined,
   title: {
-    default: 'Next.js AI Chatbot',
-    template: `%s - Next.js AI Chatbot`
+    default: 'EiL5: Explained in five levels',
+    template: `%s - EiL5: Explained in five levels',`
   },
-  description: 'An AI-powered chatbot template built with Next.js and Vercel.',
+  description: 'Any topic in the world - explained in five levels',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',

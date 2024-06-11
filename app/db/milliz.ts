@@ -5,14 +5,11 @@ const { uri, username, password } = config
 
 console.info(`Connecting to DB: ${uri}`)
 const client = new MilvusClient({
-  address: uri,
+  address: uri!,
   username: username,
   password: password
 })
-// console.log('Connected to Milvus: ' + client.connectStatus)
 
-// console.log(process.env.MILVUS_URL, process.env.MILVUS_TOKEN)
-//
 const schema = [
   {
     name: `topic_id`,

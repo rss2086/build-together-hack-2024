@@ -1,23 +1,17 @@
 import { nanoid } from '@/lib/utils'
-import { Chat } from '@/components/chat'
-import { AI } from '@/lib/chat/actions'
-import { auth } from '@/auth'
-import { Session } from '@/lib/types'
-import { getMissingKeys } from '@/app/actions'
 import { ThemeToggle } from '@/components/theme-toggle'
 import Globe from '@/components/magicui/globe'
 import Link from 'next/link'
-import { Input } from '@/components/ui/input'
 import { WikiSearchBar } from '@/components/SearchBar'
+import { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Next.js AI Chatbot'
+export const metadata:Metadata = {
+  title: 'EiL5: Explained in five levels',
+  description: 'Any topic explained in five levels of complexity',
 }
 
 export default async function IndexPage() {
   const id = nanoid()
-  const session = (await auth()) as Session
-  const missingKeys = await getMissingKeys()
 
   return (
 <main className="w-full">

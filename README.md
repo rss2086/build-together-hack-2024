@@ -8,15 +8,20 @@ The goal is to use this to become the next generation of Wikipedia, an infinite 
 
 
 # Future / Potential Roadmap
-- Add support for other languages so that anyone can read information in their native language.
-- Add up/down stream topic levels to each page to make it easy to jump to related topics.
-- Build super simple app on top of data to make it easy to download information and be useful in areas with limited internet access.
-- Add agents to scrape current internet articles and information to more accurately support evidence on each page.
-- Add customizable gradient to allow for any arbitrary level of expertise on a given topic.
-- Add an image generator to have a visual header for each topic
-- Allow topics to be refreshed automatically or on user demand to stay up to date.
-- Use video models to create video tutorials 
-- Use Whisper to allow information to be read to you in your language of choice to explain any topic.
+
+[ ] Add chat to pages so that you can continue talking and learning at the right level of abstraction.
+[ ] Add support for other languages so that anyone can read information in their native language.
+[ ] Add up/down stream topic levels to each page to make it easy to jump to related topics.
+[ ] Better markdown support for things like returned latex and other markdown parsing
+[ ] Generative UI to better explain topics
+[ ] Add way to identify user preferences using middleware / potentially some level of automation.
+[ ] Build super simple app on top of data to make it easy to download information and be useful in areas with limited internet access.
+[ ] Add agents to scrape current internet articles and information to more accurately support evidence on each page.
+[ ] Add customizable gradient to allow for any arbitrary level of expertise on a given topic.
+[ ] Add an image generator to have a visual header for each topic
+[ ] Allow topics to be refreshed automatically or on user demand to stay up to date.
+[ ] Use video models to create video tutorials 
+[ ] Use Whisper to allow information to be read to you in your language of choice to explain any topic.
 
 # How to contribute
 - Reach out to rss2086@gmail.com and get access to the environment variables needed to test and build out this further.
