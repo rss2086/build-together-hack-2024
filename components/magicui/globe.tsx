@@ -5,6 +5,7 @@ import createGlobe, { COBEOptions } from 'cobe'
 import { useTheme } from 'next-themes'
 import { useCallback, useEffect, useRef } from 'react'
 import { useSpring } from 'react-spring'
+import { useMediaQuery } from 'usehooks-ts'
 
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
@@ -42,6 +43,8 @@ export default function Globe({
   config?: COBEOptions
 }) {
   const { theme, setTheme } = useTheme()
+  const isMobile = useMediaQuery('(max-width: 640px)')
+
 
   let phi = 0
   let width = 0
@@ -107,7 +110,8 @@ export default function Globe({
     <div
       className={cn(
         'absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]',
-        className
+        className,
+        isMobile && 'hidden'
       )}
     >
       <canvas

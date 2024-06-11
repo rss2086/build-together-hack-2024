@@ -9,12 +9,13 @@ import { QdrantClient } from '@qdrant/js-client-rest'
 import { nanoid } from 'nanoid'
 import { generateEmbedding } from '@/app/db/embeddings'
 import { randomUUID } from 'crypto'
+import { revalidatePath } from 'next/cache'
 
 const groq = createOpenAI({
   baseURL: 'https://api.groq.com/openai/v1',
   apiKey: process.env.GROQ_API_KEY
 })
-const groqModel = groq('llama3-8b-8192')
+const groqModel = groq('llama3-70b-8192')
 const openAIModel = openai('gpt-4o')
 const modelToUse = groqModel
 
@@ -242,6 +243,7 @@ export const addToQdrant = async (topic:string, topicId:number, slug:string) => 
    ]
  }
  )
+ revalidatePath('/wiki', 'page')
 } catch(e){
   console.error(e)
 }

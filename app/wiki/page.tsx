@@ -4,9 +4,13 @@ import { generateEmbedding } from "../db/embeddings";
 import { QdrantClient } from "@qdrant/js-client-rest";
 import { redirect } from "next/navigation";
 import { generateObject, generateText } from "ai"
-import { openai } from "@ai-sdk/openai"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
+import { createOpenAI } from '@ai-sdk/openai';
+import { openai } from '@ai-sdk/openai';
+import { z } from "zod";
+import Heirarchy from "./heirarchy";
+
 
 export default async function Page({params, searchParams}: {params: {slug: string}, searchParams: Record<string, string>}) {
 
@@ -38,58 +42,65 @@ export default async function Page({params, searchParams}: {params: {slug: strin
     limit: 50,
   });
 
-  const bestScore = res[0].score
-  const bestSlug = res[0].payload?.slug
+  // console.log(res)
 
-  if(bestScore >= 0.96) {
-    redirect('/wiki/' + bestSlug)
-  }
+  const bestScore = res[0]?.score
+  const bestSlug = res[0]?.payload?.slug
 
-  if(bestScore <= 0.80) {
+  if(bestScore <= 0.80 || res.length === 0) {
     redirect('/wiki/new?topic=' + search)
   }
 
+  if(bestScore >= 0.92) {
+    redirect('/wiki/' + bestSlug)
+  }
+
+const topics = res.map((result) => result?.payload?.slug as string)
+
+async function organizeTopics(topics: string[]) {
+  "use server"
+  const { object: levels } = await generateObject({
+    model: openai('gpt-4o'),
+    system: 'Your are a heirarchical topic organizer. Your goal is to organize a provided list of topics in a heirarchy based on how semantically similar they are. For example, Math -> Algebra -> Linear Algebra -> Matrices. ',
+    prompt: 'Organize all the following topics into a heirarchy: ' + topics.toString() + " Your answer must be valid JSON and be returned in the json format, all links should be returned back with an empty array for subtopics if there are no subtopics.",
+    schema: z.object({
+      data: z.array(
+        z.object({
+          descriptive: z.string({description: 'A descriptive top-level category, that accurately describes the topics and subtopics below.'}),
+          topics: z.array(z.object({
+            topic: z.string({description: 'A topic title that represents the slug'}),
+            slug: z.string({description: 'The topic slug, directly sourced from the provided list of topic slugs'}),
+            subtopics: z.array(z.object({
+              topic: z.string(),
+              slug:z.string(),
+            }, {
+              description: 'A subtopic that is a child of the parent topic, this can be empty if there are no subtopics in the provided list.'
+            }))
+          }))
+        }),
+      ),
+    }),
+  });
+
+  return levels
+}
 
 
   return (
     <div className="container mx-auto px-4 py-8 md:px-6 lg:px-8">
       <div className="mb-8">
-        <div className="flex gap-8">
-        <h1 className="text-3xl font-bold">No great matches found</h1>
+        <div className="flex flex-col sm:flex-row gap-8 py-4">
+        <h1 className="text-3xl font-bold text-center">No great matches found</h1>
+        <p className="text-gray-700 dark:text-gray-400 text-center sm:hidden">Add to our EI5L Wiki with the button below or categorize and read existing pages.</p>
         <Link href={`/wiki/new?topic=${search}`}>
-          <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-6 sm:p-4 rounded w-full">
             Create a new page
           </Button>
         </Link>
         </div>
-        <p className="text-gray-500 dark:text-gray-400">This page will soon be dynamic and self-organizing to heirachically show knowledge areas</p>
+        <p className="text-gray-700 dark:text-gray-400 hidden sm:block">Add to our EI5L Wiki with the button above or read existing pages.</p>
       </div>
-      <div className="space-y-4">
-        {res.map((result) => (
-
-                  <Collapsible key={result.id}>
-                            <Link href={`/wiki/${result?.payload?.slug}`} >
-                  <div>
-                    <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 bg-white rounded-md shadow-sm dark:bg-gray-900 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-opacity-75">
-                      <div className="font-medium"><h1 className="text-xl">{result?.payload?.topic as string}</h1></div>
-                      {/* <ChevronDownIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" /> */}
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="px-4 py-3 bg-gray-50 rounded-b-md dark:bg-gray-800 dark:text-gray-300">
-                      <p>
-                        The internet is a global network of interconnected computer networks that use the Internet Protocol
-                        Suite (TCP/IP) to communicate. It is a network of networks that consists of private, public, academic,
-                        business, and government networks of local to global scope, linked by a broad array of electronic,
-                        wireless, and optical networking technologies.
-                      </p>
-                    </CollapsibleContent>
-                  </div>
-                  </Link>
-                </Collapsible>
-
-        ))}
-
-
-      </div>
+      <Heirarchy topics={topics} organizeFunc={organizeTopics}/>
     </div>
   )
 }

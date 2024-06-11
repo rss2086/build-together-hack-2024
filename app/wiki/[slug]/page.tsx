@@ -14,30 +14,28 @@ function createSlug(input: string): string {
 }
 
 export default async function HomePage({ params }: { params: { slug: string } }) {
-  const topic = params.slug
+  const slug = params.slug
   const supabase = createClient()
 
   const { data, error } = await supabase
     .from('topics')
     .select('*')
-    .eq('slug', topic)
+    .eq('slug', slug)
     .single()
-
-
-  const title = data.topic
 
   const { data: data2, error: error2 } = await supabase
   .from('pages')
   .select('*')
   .eq('topic_id', data.id)
 
-
+  const title = data?.topic
+  const convertedTitleCase = title?.replace(/-/g, ' ').replace(/\b\w/g, (l:string) => l.toUpperCase())
   // console.log('SUPABASE',data2)
 
   const articles = data2.map((article) => {
     return {
-      title: title,
-      topic:title,
+      title: convertedTitleCase,
+      topic:slug,
       level: article.level,
       content: article.content,
       image: `/levels/${article.level}.png`,

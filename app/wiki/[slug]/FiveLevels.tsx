@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Article from './Article'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface Level {
   title: string
@@ -82,6 +83,12 @@ const content = articles.filter(article => article.level === currentLevelTitle)[
     <div className="flex bg-white dark:bg-black">
       <main className="flex-1 py-4">
         <header>
+        <div className='max-w-4xl mx-auto pt-8'>
+        <Link href="/" className=''>
+        <h1 className='text-blue-600'>Go back</h1>
+
+        </Link>
+        </div>
           <h1 className="pt-8 pb-4 text-5xl font-bold font-serif text-center">
             EI5L:
           </h1>
