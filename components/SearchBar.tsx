@@ -31,6 +31,12 @@ export function WikiSearchBar() {
         handleSearch(search)
       }
       }
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handleSearch(search)
+        }
+      }
+      }
     />
     <button className="p-2 px-8 bg-black text-white ml-4 rounded-lg" onClick={()=>handleSearch(search)}>
       Search
