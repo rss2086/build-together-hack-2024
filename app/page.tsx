@@ -26,7 +26,7 @@ export default async function IndexPage() {
 
     {/* <div className="mt-12 bg-green-400"> */}
     <Globe className="mt-36" />
-    <div className="sm:absolute top-[81%] left-[20%] w-full" >
+    <div className="sm:absolute top-[81%] left-[17%] w-full" >
       <WikiSearchBar />
     </div>
     <Link
